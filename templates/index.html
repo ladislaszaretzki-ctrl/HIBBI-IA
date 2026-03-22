@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIBBI - IA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                    <h1>HIBBI</h1>
+                </div>
+                <div class="status-indicator">
+                    <span class="status-dot online"></span>
+                    <span class="status-text">En ligne</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item active" data-section="chat">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-comments"></i>
+                            <span>Chat</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-section="image">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-image"></i>
+                            <span>Générer Image</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-section="search">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-search"></i>
+                            <span>Recherche Web</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-section="code">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-code"></i>
+                            <span>Générer Code</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-section="text">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-pen"></i>
+                            <span>Créer Texte</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-section="settings">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Paramètres</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="hibbi-info">
+                    <div class="version">v1.0.0</div>
+                    <div class="capabilities">
+                        <small>7 capacités actives</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h2 class="page-title">Chat avec HIBBI</h2>
+                </div>
+                <div class="header-right">
+                    <div class="user-info">
+                        <span class="user-name">Utilisateur</span>
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Content Sections -->
+            <div class="content-wrapper">
+                <!-- Chat Section -->
+                <div class="content-section active" id="chat-section">
+                    <div class="chat-container">
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="message hibbi-message">
+                                <div class="message-avatar">
+                                    <i class="fas fa-brain"></i>
+                                </div>
+                                <div class="message-content">
+                                    <div class="message-header">
+                                        <span class="sender">HIBBI</span>
+                                        <span class="timestamp">Maintenant</span>
+                                    </div>
+                                    <div class="message-text">
+                                        Salut ! Je suis HIBBI, votre intelligence artificielle personnelle. Je peux discuter avec vous, générer des images, faire des recherches, créer du code et bien plus encore. Comment puis-je vous aider aujourd'hui ? 🚀
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-input-container">
+                            <div class="input-group">
+                                <input type="text" id="chatInput" placeholder="Écrivez votre message..." class="chat-input">
+                                <button id="sendMessage" class="send-button">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                            <div class="input-options">
+                                <button class="option-button" title="Joindre un fichier">
+                                    <i class="fas fa-paperclip"></i>
+                                </button>
+                                <button class="option-button" title="Voice">
+                                    <i class="fas fa-microphone"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Image Generation Section -->
+                <div class="content-section" id="image-section">
+                    <div class="section-container">
+                        <div class="section-header">
+                            <h3>Génération d'Images</h3>
+                            <p>Décrivez l'image que vous souhaitez générer</p>
+                        </div>
+                        
+                        <div class="generation-form">
+                            <div class="form-group">
+                                <label for="imagePrompt">Description de l'image</label>
+                                <textarea id="imagePrompt" placeholder="Ex: Un guerrier dans un monde cyberpunk avec des néons..." rows="4"></textarea>
+                            </div>
+                            
+                            <div class="form-options">
+                                <div class="option-group">
+                                    <label>Style</label>
+                                    <select id="imageStyle">
+                                        <option value="realistic">Réaliste</option>
+                                        <option value="artistic">Artistique</option>
+                                        <option value="cartoon">Dessin animé</option>
+                                        <option value="abstract">Abstrait</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="option-group">
+                                    <label>Taille</label>
+                                    <select id="imageSize">
+                                        <option value="512x512">512x512</option>
+                                        <option value="768x768">768x768</option>
+                                        <option value="1024x1024">1024x1024</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <button id="generateImage" class="generate-button">
+                                <i class="fas fa-magic"></i>
+                                Générer l'image
+                            </button>
+                        </div>
+                        
+                        <div class="generation-result" id="imageResult" style="display: none;">
+                            <div class="result-header">
+                                <h4>Image générée</h4>
+                                <button class="download-button">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                            <div class="result-content">
+                                <img id="generatedImage" src="" alt="Image générée">
+                                <div class="result-info">
+                                    <p class="prompt-used"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Web Search Section -->
+                <div class="content-section" id="search-section">
+                    <div class="section-container">
+                        <div class="section-header">
+                            <h3>Recherche Web</h3>
+                            <p>Recherchez des informations sur internet</p>
+                        </div>
+                        
+                        <div class="search-form">
+                            <div class="search-input-group">
+                                <input type="text" id="searchQuery" placeholder="Que recherchez-vous ?" class="search-input">
+                                <button id="performSearch" class="search-button">
+                                    <i class="fas fa-search"></i>
+                                    Rechercher
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="search-results" id="searchResults" style="display: none;">
+                            <div class="results-header">
+                                <h4>Résultats de recherche</h4>
+                                <span class="results-count"></span>
+                            </div>
+                            <div class="results-list" id="resultsList">
+                                <!-- Results will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Code Generation Section -->
+                <div class="content-section" id="code-section">
+                    <div class="section-container">
+                        <div class="section-header">
+                            <h3>Génération de Code</h3>
+                            <p>Générez du code dans différents langages</p>
+                        </div>
+                        
+                        <div class="code-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="codeLanguage">Langage</label>
+                                    <select id="codeLanguage">
+                                        <option value="python">Python</option>
+                                        <option value="javascript">JavaScript</option>
+                                        <option value="html">HTML</option>
+                                        <option value="css">CSS</option>
+                                        <option value="java">Java</option>
+                                        <option value="cpp">C++</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="codeDescription">Description</label>
+                                    <input type="text" id="codeDescription" placeholder="Ex: Calculatrice simple">
+                                </div>
+                            </div>
+                            
+                            <button id="generateCode" class="generate-button">
+                                <i class="fas fa-code"></i>
+                                Générer le code
+                            </button>
+                        </div>
+                        
+                        <div class="code-result" id="codeResult" style="display: none;">
+                            <div class="result-header">
+                                <h4>Code généré</h4>
+                                <div class="result-actions">
+                                    <button class="copy-button" id="copyCode">
+                                        <i class="fas fa-copy"></i>
+                                        Copier
+                                    </button>
+                                    <button class="download-button" id="downloadCode">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="code-container">
+                                <pre><code id="generatedCode"></code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Text Creation Section -->
+                <div class="content-section" id="text-section">
+                    <div class="section-container">
+                        <div class="section-header">
+                            <h3>Création de Textes</h3>
+                            <p>Générez différents types de textes créatifs</p>
+                        </div>
+                        
+                        <div class="text-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="textType">Type de texte</label>
+                                    <select id="textType">
+                                        <option value="rap">Paroles de rap</option>
+                                        <option value="histoire">Histoire</option>
+                                        <option value="script">Script YouTube</option>
+                                        <option value="post">Post Instagram</option>
+                                        <option value="email">Email</option>
+                                        <option value="article">Article</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="textTopic">Sujet</label>
+                                    <input type="text" id="textTopic" placeholder="Ex: L'intelligence artificielle">
+                                </div>
+                            </div>
+                            
+                            <button id="generateText" class="generate-button">
+                                <i class="fas fa-pen"></i>
+                                Générer le texte
+                            </button>
+                        </div>
+                        
+                        <div class="text-result" id="textResult" style="display: none;">
+                            <div class="result-header">
+                                <h4>Texte généré</h4>
+                                <div class="result-actions">
+                                    <button class="copy-button" id="copyText">
+                                        <i class="fas fa-copy"></i>
+                                        Copier
+                                    </button>
+                                    <button class="download-button" id="downloadText">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="text-container">
+                                <div id="generatedText"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Settings Section -->
+                <div class="content-section" id="settings-section">
+                    <div class="section-container">
+                        <div class="section-header">
+                            <h3>Paramètres</h3>
+                            <p>Personnalisez votre expérience HIBBI</p>
+                        </div>
+                        
+                        <div class="settings-grid">
+                            <div class="setting-card">
+                                <h4>Préférences de conversation</h4>
+                                <div class="setting-item">
+                                    <label>Style de réponse</label>
+                                    <select id="responseStyle">
+                                        <option value="standard">Standard</option>
+                                        <option value="creative">Créatif</option>
+                                        <option value="technical">Technique</option>
+                                        <option value="friendly">Amical</option>
+                                    </select>
+                                </div>
+                                <div class="setting-item">
+                                    <label>Langue</label>
+                                    <select id="language">
+                                        <option value="fr">Français</option>
+                                        <option value="en">English</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-card">
+                                <h4>Apparence</h4>
+                                <div class="setting-item">
+                                    <label>Thème</label>
+                                    <select id="theme">
+                                        <option value="dark">Sombre</option>
+                                        <option value="light">Clair</option>
+                                        <option value="auto">Auto</option>
+                                    </select>
+                                </div>
+                                <div class="setting-item">
+                                    <label>Taille de police</label>
+                                    <input type="range" id="fontSize" min="12" max="20" value="16">
+                                </div>
+                            </div>
+                            
+                            <div class="setting-card">
+                                <h4>Statistiques HIBBI</h4>
+                                <div class="stats-container" id="hibbiStats">
+                                    <div class="stat-item">
+                                        <span class="stat-label">Interactions totales</span>
+                                        <span class="stat-value" id="totalInteractions">0</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">Taux de succès</span>
+                                        <span class="stat-value" id="successRate">0%</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">Confiance moyenne</span>
+                                        <span class="stat-value" id="avgConfidence">0%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-card">
+                                <h4>Actions</h4>
+                                <div class="action-buttons">
+                                    <button class="action-button" id="clearMemory">
+                                        <i class="fas fa-trash"></i>
+                                        Effacer la mémoire
+                                    </button>
+                                    <button class="action-button" id="exportData">
+                                        <i class="fas fa-download"></i>
+                                        Exporter les données
+                                    </button>
+                                    <button class="action-button" id="resetLearning">
+                                        <i class="fas fa-redo"></i>
+                                        Réinitialiser l'apprentissage
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>HIBBI réfléchit...</p>
+        </div>
+    </div>
+    
+    <!-- Notification Toast -->
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <i class="fas fa-check-circle"></i>
+            <span class="toast-message"></span>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

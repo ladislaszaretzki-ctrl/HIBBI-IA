@@ -1,0 +1,49 @@
+{
+  "name": "hibbi-ia",
+  "version": "1.0.0",
+  "description": "HIBBI - Intelligence Artificielle Complète",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "build-win": "electron-builder --win",
+    "dist": "electron-builder --publish=never"
+  },
+  "keywords": [
+    "ia",
+    "intelligence-artificielle",
+    "chat",
+    "hibbi",
+    "electron"
+  ],
+  "author": "HIBBI  FONDATION",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.6.4"
+  },
+  "build": {
+    "appId": "com.hibbi.ia",
+    "productName": "HIBBI",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "package.json",
+      "node_modules/**/*",
+      "assets/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/hibbi.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}

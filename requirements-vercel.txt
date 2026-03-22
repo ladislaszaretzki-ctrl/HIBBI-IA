@@ -1,0 +1,5 @@
+# Dépendances pour Vercel
+# Version minimale pour éviter les problèmes de taille
+Flask==2.3.2
+Werkzeug==2.3.6
+requests==2.28.2
